@@ -22,9 +22,85 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     {
         asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerController"",
-    ""maps"": [],
+    ""maps"": [
+        {
+            ""name"": ""GibbyControls"",
+            ""id"": ""661f5436-d8d9-4dec-859c-fc1afddf5d9b"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""80e66e54-96f1-4df0-ba4a-92d6defb761f"",
+                    ""expectedControlType"": ""Vector3"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""3D Vector"",
+                    ""id"": ""ded5bf43-b4cc-4352-a10e-451744620fba"",
+                    ""path"": ""3DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""999cd963-ca38-4329-88f3-c65cb3886831"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""8f67031a-e37a-4b59-b286-c7a8d91c28e2"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""forward"",
+                    ""id"": ""b8774231-97b6-4c0c-a760-a28f3628934c"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""backward"",
+                    ""id"": ""7cb48c05-4984-488a-a587-3a603f0cc09d"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        }
+    ],
     ""controlSchemes"": []
 }");
+        // GibbyControls
+        m_GibbyControls = asset.FindActionMap("GibbyControls", throwIfNotFound: true);
+        m_GibbyControls_Movement = m_GibbyControls.FindAction("Movement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -81,5 +157,55 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     public int FindBinding(InputBinding bindingMask, out InputAction action)
     {
         return asset.FindBinding(bindingMask, out action);
+    }
+
+    // GibbyControls
+    private readonly InputActionMap m_GibbyControls;
+    private List<IGibbyControlsActions> m_GibbyControlsActionsCallbackInterfaces = new List<IGibbyControlsActions>();
+    private readonly InputAction m_GibbyControls_Movement;
+    public struct GibbyControlsActions
+    {
+        private @PlayerController m_Wrapper;
+        public GibbyControlsActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Movement => m_Wrapper.m_GibbyControls_Movement;
+        public InputActionMap Get() { return m_Wrapper.m_GibbyControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GibbyControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IGibbyControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GibbyControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GibbyControlsActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+        }
+
+        private void UnregisterCallbacks(IGibbyControlsActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+        }
+
+        public void RemoveCallbacks(IGibbyControlsActions instance)
+        {
+            if (m_Wrapper.m_GibbyControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGibbyControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GibbyControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GibbyControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GibbyControlsActions @GibbyControls => new GibbyControlsActions(this);
+    public interface IGibbyControlsActions
+    {
+        void OnMovement(InputAction.CallbackContext context);
     }
 }
