@@ -30,7 +30,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
-                    ""id"": ""80e66e54-96f1-4df0-ba4a-92d6defb761f"",
+                    ""id"": ""9a21e009-5652-4587-a732-f7cd1ca6400b"",
                     ""expectedControlType"": ""Vector3"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,7 +40,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""3D Vector"",
-                    ""id"": ""ded5bf43-b4cc-4352-a10e-451744620fba"",
+                    ""id"": ""673e41e5-2f27-4590-99e7-0d98a2a70c03"",
                     ""path"": ""3DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -51,7 +51,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""999cd963-ca38-4329-88f3-c65cb3886831"",
+                    ""id"": ""d623a054-76a0-4f58-983c-a00e7bd50a31"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -62,7 +62,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""8f67031a-e37a-4b59-b286-c7a8d91c28e2"",
+                    ""id"": ""e82ce2f6-5db6-4a6c-bbb4-cc8ad20dddc1"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -73,7 +73,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""forward"",
-                    ""id"": ""b8774231-97b6-4c0c-a760-a28f3628934c"",
+                    ""id"": ""b05464a3-0b68-4644-b8f0-36fdcd98643a"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -84,7 +84,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""backward"",
-                    ""id"": ""7cb48c05-4984-488a-a587-3a603f0cc09d"",
+                    ""id"": ""573d01e6-5c00-4d05-8586-ea2ef9d6fcd5"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
