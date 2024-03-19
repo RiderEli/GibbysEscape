@@ -35,6 +35,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""aac9133f-3f6f-4111-95b7-98065e4f36b2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -92,6 +101,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ebd9869f-e89e-4c5f-bad8-1e6e8ba78080"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -101,6 +121,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         // GibbyControls
         m_GibbyControls = asset.FindActionMap("GibbyControls", throwIfNotFound: true);
         m_GibbyControls_Movement = m_GibbyControls.FindAction("Movement", throwIfNotFound: true);
+        m_GibbyControls_Jump = m_GibbyControls.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -163,11 +184,13 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_GibbyControls;
     private List<IGibbyControlsActions> m_GibbyControlsActionsCallbackInterfaces = new List<IGibbyControlsActions>();
     private readonly InputAction m_GibbyControls_Movement;
+    private readonly InputAction m_GibbyControls_Jump;
     public struct GibbyControlsActions
     {
         private @PlayerController m_Wrapper;
         public GibbyControlsActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_GibbyControls_Movement;
+        public InputAction @Jump => m_Wrapper.m_GibbyControls_Jump;
         public InputActionMap Get() { return m_Wrapper.m_GibbyControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -180,6 +203,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IGibbyControlsActions instance)
@@ -187,6 +213,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IGibbyControlsActions instance)
@@ -207,5 +236,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     public interface IGibbyControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

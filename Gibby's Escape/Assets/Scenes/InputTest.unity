@@ -526,7 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f06a1282ff81ef41a790a594848b21d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gibbySpeed: 200
+  gibbySpeed: 20
+  jumpForce: 20
   isJumping: 0
 --- !u!1 &1160234425
 GameObject:
@@ -591,7 +592,7 @@ GameObject:
   - component: {fileID: 1806138828}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -690,5 +691,5 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 203844589}
   - {fileID: 1160234427}
-  - {fileID: 1806138831}
   - {fileID: 1104360920}
+  - {fileID: 1806138831}
