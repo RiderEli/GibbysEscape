@@ -32,8 +32,7 @@ public class GibbyController : MonoBehaviour
     void FixedUpdate()
     {
         moveVec = GibbyControls.GibbyControls.Movement.ReadValue<Vector3>();
-        Vector3 gibbyMoveInput = new Vector3(moveVec.x, 0, moveVec.z);
-        gibbyRB.MovePosition(transform.position + gibbyMoveInput * gibbySpeed * Time.deltaTime);
+        gibbyRB.AddForce(new Vector3(moveVec.x, 0, moveVec.z) * gibbySpeed, ForceMode.Force);
 
     }
 
